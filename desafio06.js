@@ -1,39 +1,41 @@
-/* 6. crie um programa utilizando programação orientada a objeto.
-O programa deve conter as classes Funcionario (nome, idade, salário);
-FuncionarioPJ(nome, idade, horasTrabalhadas e valoHora);
-FuncionárioPF(nome, idade, salarioFixo)
-Na classe principal, deve-se inicializar os dois tipos de funcionários, com seus valores aleatórios e imprima
-o salário de cada funcionário.*/
+class Funcionario {
+    constructor(nome, idade) {
+        this.nome = nome;
+        this.idade = idade;
+    }
 
-const readline = require('readline');
+    calcularSalario() {
+        return 0; // Método a ser sobrescrito
+    }
+}
 
+class FuncionarioPJ extends Funcionario {
+    constructor(nome, idade, horasTrabalhadas, valorHora) {
+        super(nome, idade);
+        this.horasTrabalhadas = horasTrabalhadas;
+        this.valorHora = valorHora;
+    }
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+    calcularSalario() {
+        return this.horasTrabalhadas * this.valorHora;
+    }
+}
 
+class FuncionarioPF extends Funcionario {
+    constructor(nome, idade, salarioFixo) {
+        super(nome, idade);
+        this.salarioFixo = salarioFixo;
+    }
 
-function verificarAprovacao() {
-    rl.question("Digite a primeira nota: ", (nota1) => {
-        rl.question("Digite a segunda nota: ", (nota2) => {
-            rl.question("Digite a terceira nota: ", (nota3) => {
-                
-                const media = (parseFloat(nota1) + parseFloat(nota2) + parseFloat(nota3)) / 3;
-
-                
-                if (media >= 6.0) {
-                    console.log(`Média: ${media.toFixed(2)} - Aprovado!`);
-                } else {
-                    console.log(`Média: ${media.toFixed(2)} - Reprovado!`);
-                }
-
-               
-                rl.close();
-            });
-        });
-    });
+    calcularSalario() {
+        return this.salarioFixo;
+    }
 }
 
 
-verificarAprovacao();
+const funcionarioPJ = new FuncionarioPJ("Carlos Silva", 30, Math.floor(Math.random() * 200) + 80, 50);
+const funcionarioPF = new FuncionarioPF("Ana Souza", 28, 5000);
+
+
+console.log(Salário do Funcionário PJ (${funcionarioPJ.nome}): R$ ${funcionarioPJ.calcularSalario().toFixed(2)});
+console.log(Salário do Funcionário PF (${funcionarioPF.nome}): R$ ${funcionarioPF.calcularSalario().toFixed(2)});
